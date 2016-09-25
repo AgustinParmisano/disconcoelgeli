@@ -136,7 +136,8 @@
 
     //Web Socket comunication
     //Connect to server
-    var ws = new WebSocket("ws://192.168.10.104:8888/websocket");
+    var ws = new WebSocket("ws://localhost:8888/websocket");
+    //console.log(ws);
 
     //Open the socket and say hi
     ws.onopen = function() {
@@ -253,7 +254,10 @@
                         }
                         return data;
                     }())
-                }]
+                }],
+                credits: {
+                  enabled: false
+                },
             });
 
             $('#corriente_chart').highcharts({
@@ -283,7 +287,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Watt'
+                        text: 'Ampére'
                     },
                     plotLines: [{
                         value: 0,
@@ -320,7 +324,10 @@
                         }
                         return data;
                     }())
-                }]
+                }],
+                credits: {
+                  enabled: false
+               },
             });
         });
     });
@@ -340,7 +347,7 @@
           },
 
           title: {
-              text: 'Potencia'
+              text: 'Corriente'
           },
 
           pane: {
@@ -379,7 +386,7 @@
           // the value axis
           yAxis: {
               min: 0,
-              max: 200,
+              max: 30,
 
               minorTickInterval: 'auto',
               minorTickWidth: 1,
@@ -393,7 +400,7 @@
               tickLength: 10,
               tickColor: '#666',
               labels: {
-                  step: 2,
+                  step: 1,
                   rotation: 'auto'
               },
               title: {
@@ -401,27 +408,29 @@
               },
               plotBands: [{
                   from: 0,
-                  to: 120,
+                  to: 10,
                   color: '#55BF3B' // green
               }, {
-                  from: 120,
-                  to: 160,
+                  from: 10,
+                  to: 20,
                   color: '#DDDF0D' // yellow
               }, {
-                  from: 160,
-                  to: 200,
+                  from: 20,
+                  to: 30,
                   color: '#DF5353' // red
               }]
           },
 
           series: [{
-              name: 'Potencia',
+              name: 'Corriente',
               data: [0],
               tooltip: {
-                  valueSuffix: ' Watt/h'
+                  valueSuffix: ' Ampére/h'
               }
-          }]
-
+            }],
+            credits: {
+              enabled: false
+           },
       },
       // Add some life
       function (chart) {
@@ -429,7 +438,7 @@
               setInterval(function () {
                   var point = chart.series[0].points[0];
 
-                  point.update(pot);
+                  point.update(curr);
 
               }, 3000);
           }
